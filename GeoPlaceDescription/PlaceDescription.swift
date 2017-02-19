@@ -33,14 +33,44 @@ class PlaceDescription {
     var elevation: Float
     var latitude: Float
     var longitude: Float
-    init(name:String, description:String, category:String, addresstitle:String, address:String, elevation:Float, latitude:Float, longitude:Float) {
-        self.name = name
-        self.description = description
-        self.category = category
-        self.addresstitle = addresstitle
-        self.address = address
-        self.elevation = elevation
-        self.latitude = latitude
-        self.longitude = longitude
+    public init (jsonStr: String){
+        self.name = ""
+        self.description = ""
+        self.category = ""
+        self.addresstitle = ""
+        self.address = ""
+        self.elevation = 0
+        self.latitude = 0
+        self.longitude = 0
+        
+        if let data: NSData = jsonStr.data(using: String.Encoding.utf8) as NSData?{
+            do{
+                let dict = try JSONSerialization.jsonObject(with: data as Data,options:.mutableContainers) as?[String:AnyObject]
+                self.name = (dict!["name"] as? String)!
+                self.description = (dict!["description"] as? String)!
+                self.category = (dict!["category"] as? String)!
+                self.addresstitle = (dict!["addresstitle"] as? String)!
+                self.address = (dict!["address"] as? String)!
+                self.elevation = (dict!["elevation"] as? Float)!
+                self.latitude = (dict!["latitude"] as? Float)!
+                self.longitude = (dict!["longitude"] as? Float)!
+            } catch {
+                print("unable to convert Json to a dictionary")
+                
+            }
+        }
+    }
+    
+    public func toJsonString() -> String {
+        var jsonStr = "";
+        let dict:[String : Any] = ["name": name, "description": description, "category":category, "addresstittle":addresstitle, "address":address, "elvation":elevation, "latitude":latitude, "longitude":longitude] as [String : Any]
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            // here "jsonData" is the dictionary encoded in JSON data
+            jsonStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+        } catch let error as NSError {
+            print("unable to convert dictionary to a Json Object with error: \(error)")
+        }
+        return jsonStr
     }
 }

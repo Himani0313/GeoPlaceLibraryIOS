@@ -37,35 +37,46 @@ class ViewController: UIViewController , UITextViewDelegate{
     @IBOutlet weak var displayLongitude: UITextField!
     @IBOutlet weak var displayElevation: UITextField!
 
-    let sample = PlaceDescription (name: "ASU-Poly",
-                                   description: "Home of ASU's Software Engineering Programs",
-                                   category: "School",
-                                   addresstitle: "ASU Software Engineering",
-                                   address: "7171 E Sonoran Arroyo Mall\nPeralta Hall 230\nMesa AZ 85212",
-                                   elevation: 1300.0,
-                                   latitude: 33.306388,
-                                   longitude: -111.679121)
+    var places:[String:PlaceDescription] = [String:PlaceDescription]()
+    var selectedPlace:String = "unknown"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        displayAddress.delegate = self
-        displayName.text = sample.name
-        displayDescription.text = sample.description
-        displayCategory.text = sample.category
-        displayAddressTitle.text = sample.addresstitle
-        displayAddress.text = sample.address
-        displayElevation.text = String(format:"%f", sample.elevation)
-        displayLatitude.text = String(format: "%f", sample.latitude)
-        displayLongitude.text = String(format: "%f", sample.longitude)
-        
-        
+        displayName.text = "\(places[selectedPlace]!.name)"
+        displayDescription.text = "\(places[selectedPlace]!.description)"
+        displayCategory.text = "\(places[selectedPlace]!.category)"
+        displayAddressTitle.text = "\(places[selectedPlace]!.addresstitle)"
+        displayAddress.text = "\(places[selectedPlace]!.address)"
+        displayLatitude.text = "\(places[selectedPlace]!.latitude)"
+        displayLongitude.text = "\(places[selectedPlace]!.longitude)"
+        displayElevation.text = "\(places[selectedPlace]!.elevation)"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.displayName.resignFirstResponder()
+        self.displayDescription.resignFirstResponder()
+        self.displayAddressTitle.resignFirstResponder()
+        self.displayAddress.resignFirstResponder()
+        self.displayElevation.resignFirstResponder()
+        self.displayLatitude.resignFirstResponder()
+        self.displayLongitude.resignFirstResponder()
+    }
+    
+    // UITextFieldDelegate Method
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.displayName.resignFirstResponder()
+        self.displayDescription.resignFirstResponder()
+        self.displayAddressTitle.resignFirstResponder()
+        self.displayAddress.resignFirstResponder()
+        self.displayElevation.resignFirstResponder()
+        self.displayLatitude.resignFirstResponder()
+        self.displayLongitude.resignFirstResponder()
+        return true
+    }
 
 }
 
