@@ -1,0 +1,46 @@
+/*
+ * Copyright 2017 Himani Shah,
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
+ * Purpose: Example of single view application
+ * Allows to display the objects of a class to access the GUI
+ *
+ * Ser423 Mobile Applications
+ * @author Himani Shah Himani.shah@asu.edu
+ *         Software Engineering, CIDSE, ASU Poly
+ * @version January 2017
+ */
+
+import Foundation
+class PlaceDescription {
+    var name :String
+    var description :String
+    var category: String
+    var addresstitle: String
+    var address: String
+    var elevation: Float
+    var latitude: Float
+    var longitude: Float
+    init(name:String, description:String, category:String, addresstitle:String, address:String, elevation:Float, latitude:Float, longitude:Float) {
+        self.name = name
+        self.description = description
+        self.category = category
+        self.addresstitle = addresstitle
+        self.address = address
+        self.elevation = elevation
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+}
