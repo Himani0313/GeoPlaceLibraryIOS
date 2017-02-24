@@ -11,13 +11,16 @@ import UIKit
 class tableViewController: UITableViewController{
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var names:[String] = [String]()
+    
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         let ASUWest:PlaceDescription = PlaceDescription(jsonStr: "{\"addresstitle\":\"ASU West Campus\",\"address\":\"13591 N 47th Ave$Phoenix AZ 85051\",\"elevation\":1100.0,\"latitude\":33.608979,\"longitude\":-112.159469,\"name\":\"ASU-West\",\"image\":\"asuwest\",\"description\":\"Home of ASU's Applied Computing Program\",\"category\":\"School\"}")
         let UAKAnchorage = PlaceDescription(jsonStr: "{\"addresstitle\":\"University of Alaska at Anchorage\",\"address\":\"290 Spirit Dr$Anchorage AK 99508\",\"elevation\":0.0,\"latitude\":61.189748,\"longitude\":-149.826721,\"name\":\"UAK-Anchorage\",\"image\":\"univalaska\",\"description\":\"University of Alaska's largest campus\",\"category\":\"School\"}")
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(tableViewController.navigateToNextViewController))
         places = ["ASU-West":ASUWest,"UAK-Anchorage":UAKAnchorage]
         names = ["ASU-West","UAK-Anchorage"]
         
@@ -27,6 +30,20 @@ class tableViewController: UITableViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func navigateToNextViewController(){
+        self.performSegue(withIdentifier: "addPlace", sender: self)
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print("tableView editing row at: \(indexPath.row)")
+        if editingStyle == .delete {
+            let selectedPlace:String = names[indexPath.row]
+            print("deleting the place \(selectedPlace)")
+            places.removeValue(forKey: selectedPlace)
+            names = Array(places.keys)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            // don't need to reload data, using delete to make update
+        }
     }
     // MARK: - Table view data source methods
     override func numberOfSections(in tableView: UITableView) -> Int {
