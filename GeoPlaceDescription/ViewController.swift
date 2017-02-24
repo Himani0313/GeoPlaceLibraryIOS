@@ -36,20 +36,39 @@ class ViewController: UIViewController , UITextViewDelegate{
     @IBOutlet weak var displayLatitude: UITextField!
     @IBOutlet weak var displayLongitude: UITextField!
     @IBOutlet weak var displayElevation: UITextField!
+    
+    @IBAction func UpdatePlaces(_ sender: Any) {
+        places.description = displayDescription.text!
+        places.category = displayCategory.text!
+        places.addresstitle = displayAddressTitle.text!
+        places.address = displayAddress.text!
+        places.elevation = Float(displayElevation.text!)!
+        places.latitude = Float(displayLatitude.text!)!
+        places.longitude = Float(displayLongitude.text!)!
+    }
 
-    var places:[String:PlaceDescription] = [String:PlaceDescription]()
+    var places : PlaceDescription = PlaceDescription()
     var selectedPlace:String = "unknown"
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        displayName.text = "\(places[selectedPlace]!.name)"
-        displayDescription.text = "\(places[selectedPlace]!.description)"
-        displayCategory.text = "\(places[selectedPlace]!.category)"
-        displayAddressTitle.text = "\(places[selectedPlace]!.addresstitle)"
-        displayAddress.text = "\(places[selectedPlace]!.address)"
-        displayLatitude.text = "\(places[selectedPlace]!.latitude)"
-        displayLongitude.text = "\(places[selectedPlace]!.longitude)"
-        displayElevation.text = "\(places[selectedPlace]!.elevation)"
+//        displayName.text = "\(places[selectedPlace]!.name)"
+//        displayDescription.text = "\(places[selectedPlace]!.description)"
+//        displayCategory.text = "\(places[selectedPlace]!.category)"
+//        displayAddressTitle.text = "\(places[selectedPlace]!.addresstitle)"
+//        displayAddress.text = "\(places[selectedPlace]!.address)"
+//        displayLatitude.text = "\(places[selectedPlace]!.latitude)"
+//        displayLongitude.text = "\(places[selectedPlace]!.longitude)"
+//        displayElevation.text = "\(places[selectedPlace]!.elevation)"
+        self.title = places.name
+        displayName.text = places.name
+        displayDescription.text = places.description
+        displayCategory.text = places.category
+        displayAddressTitle.text = places.addresstitle
+        displayAddress.text = places.address
+        displayElevation.text = String(format:"%f", places.elevation)
+        displayLatitude.text = String(format:"%f", places.latitude)
+        displayLongitude.text = String(format:"%f", places.longitude)
     }
 
     override func didReceiveMemoryWarning() {

@@ -9,6 +9,7 @@
 import UIKit
 
 class tableViewController: UITableViewController{
+    let placeDescriptionLibraryObject = PlaceDescriptionLibrary()
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var names:[String] = [String]()
     
@@ -16,13 +17,10 @@ class tableViewController: UITableViewController{
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        NSLog("view did load" )
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        let ASUWest:PlaceDescription = PlaceDescription(jsonStr: "{\"addresstitle\":\"ASU West Campus\",\"address\":\"13591 N 47th Ave$Phoenix AZ 85051\",\"elevation\":1100.0,\"latitude\":33.608979,\"longitude\":-112.159469,\"name\":\"ASU-West\",\"image\":\"asuwest\",\"description\":\"Home of ASU's Applied Computing Program\",\"category\":\"School\"}")
-        let UAKAnchorage = PlaceDescription(jsonStr: "{\"addresstitle\":\"University of Alaska at Anchorage\",\"address\":\"290 Spirit Dr$Anchorage AK 99508\",\"elevation\":0.0,\"latitude\":61.189748,\"longitude\":-149.826721,\"name\":\"UAK-Anchorage\",\"image\":\"univalaska\",\"description\":\"University of Alaska's largest campus\",\"category\":\"School\"}")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(tableViewController.navigateToNextViewController))
-        places = ["ASU-West":ASUWest,"UAK-Anchorage":UAKAnchorage]
-        names = ["ASU-West","UAK-Anchorage"]
+        names = placeDescriptionLibraryObject.getPlaceTitles()
         
         self.title = "Places List"
         
@@ -51,16 +49,15 @@ class tableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return places.count
+        return names.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Get and configure the cell...
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath)
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "PlaceCell", for: indexPath) as UITableViewCell
         
-        let aPlace = places[names[indexPath.row]]! as PlaceDescription
-        cell.textLabel?.text = aPlace.name
-        cell.detailTextLabel?.text = aPlace.description
+        cell.textLabel?.text = names[indexPath.row]
+        
         return cell
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -70,7 +67,8 @@ class tableViewController: UITableViewController{
         if segue.identifier == "PlaceDetail" {
             let viewController:ViewController = segue.destination as! ViewController
             let indexPath = self.tableView.indexPathForSelectedRow!
-            viewController.places = self.places
+            let aPlace = placeDescriptionLibraryObject.getPlaceDescription(placeTitle: names[indexPath.row]) as PlaceDescription
+            viewController.places = aPlace
             viewController.selectedPlace = names[indexPath.row]
         }
     }

@@ -33,6 +33,16 @@ class PlaceDescription {
     var elevation: Float
     var latitude: Float
     var longitude: Float
+    public init(){
+        self.name = ""
+        self.description = ""
+        self.category = ""
+        self.addresstitle = ""
+        self.address = ""
+        self.elevation = 0
+        self.latitude = 0
+        self.longitude = 0
+    }
     public init (jsonStr: String){
         self.name = ""
         self.description = ""
@@ -49,8 +59,8 @@ class PlaceDescription {
                 self.name = (dict!["name"] as? String)!
                 self.description = (dict!["description"] as? String)!
                 self.category = (dict!["category"] as? String)!
-                self.addresstitle = (dict!["addresstitle"] as? String)!
-                self.address = (dict!["address"] as? String)!
+                self.addresstitle = (dict!["addressTitle"] as? String)!
+                self.address = (dict!["addressStreet"] as? String)!
                 self.elevation = (dict!["elevation"] as? Float)!
                 self.latitude = (dict!["latitude"] as? Float)!
                 self.longitude = (dict!["longitude"] as? Float)!

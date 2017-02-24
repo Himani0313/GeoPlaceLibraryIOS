@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E42D961C1E5A358100408588 /* tableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42D961B1E5A358100408588 /* tableViewController.swift */; };
 		E4409C111E60B7120023ED78 /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409C101E60B7120023ED78 /* addViewController.swift */; };
+		E4409C131E60E4530023ED78 /* PlaceDescriptionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4409C121E60E4530023ED78 /* PlaceDescriptionLibrary.swift */; };
 		E447D4E01E3045DC008AA940 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447D4DF1E3045DC008AA940 /* AppDelegate.swift */; };
 		E447D4E21E3045DC008AA940 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447D4E11E3045DC008AA940 /* ViewController.swift */; };
 		E447D4E51E3045DC008AA940 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E447D4E31E3045DC008AA940 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		E42D961B1E5A358100408588 /* tableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tableViewController.swift; sourceTree = "<group>"; };
 		E4409C101E60B7120023ED78 /* addViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
+		E4409C121E60E4530023ED78 /* PlaceDescriptionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDescriptionLibrary.swift; sourceTree = "<group>"; };
 		E447D4DC1E3045DC008AA940 /* GeoPlaceDescription.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoPlaceDescription.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E447D4DF1E3045DC008AA940 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E447D4E11E3045DC008AA940 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				E447D50D1E3049A1008AA940 /* PlaceDescription.swift */,
 				E42D961B1E5A358100408588 /* tableViewController.swift */,
 				E4409C101E60B7120023ED78 /* addViewController.swift */,
+				E4409C121E60E4530023ED78 /* PlaceDescriptionLibrary.swift */,
 			);
 			path = GeoPlaceDescription;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				E447D4E21E3045DC008AA940 /* ViewController.swift in Sources */,
 				E447D50E1E3049A1008AA940 /* PlaceDescription.swift in Sources */,
+				E4409C131E60E4530023ED78 /* PlaceDescriptionLibrary.swift in Sources */,
 				E42D961C1E5A358100408588 /* tableViewController.swift in Sources */,
 				E4409C111E60B7120023ED78 /* addViewController.swift in Sources */,
 				E447D4E01E3045DC008AA940 /* AppDelegate.swift in Sources */,
