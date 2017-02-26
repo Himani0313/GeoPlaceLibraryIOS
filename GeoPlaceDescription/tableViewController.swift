@@ -20,7 +20,7 @@ class tableViewController: UITableViewController{
         NSLog("view did load" )
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        names = placeDescriptionLibraryObject.getPlaceTitles()
+        self.names = placeDescriptionLibraryObject.getPlaceTitles()
         
         self.title = "Places List"
         
@@ -37,8 +37,8 @@ class tableViewController: UITableViewController{
         if editingStyle == .delete {
             let selectedPlace:String = names[indexPath.row]
             print("deleting the place \(selectedPlace)")
-            places.removeValue(forKey: selectedPlace)
-            names = Array(places.keys)
+            placeDescriptionLibraryObject.remove(selectedPlace: selectedPlace)
+            self.names = placeDescriptionLibraryObject.getPlaceTitles()
             tableView.deleteRows(at: [indexPath], with: .fade)
             // don't need to reload data, using delete to make update
         }

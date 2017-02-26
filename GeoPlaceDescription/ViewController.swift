@@ -28,7 +28,7 @@ import UIKit
 
 class ViewController: UIViewController , UITextViewDelegate{
     //Mark: Properties
-    @IBOutlet weak var displayName: UITextField!
+    
     @IBOutlet weak var displayDescription: UITextField!
     @IBOutlet weak var displayCategory: UITextField!
     @IBOutlet weak var displayAddressTitle: UITextField!
@@ -45,6 +45,7 @@ class ViewController: UIViewController , UITextViewDelegate{
         places.elevation = Float(displayElevation.text!)!
         places.latitude = Float(displayLatitude.text!)!
         places.longitude = Float(displayLongitude.text!)!
+        
     }
 
     var places : PlaceDescription = PlaceDescription()
@@ -61,7 +62,7 @@ class ViewController: UIViewController , UITextViewDelegate{
 //        displayLongitude.text = "\(places[selectedPlace]!.longitude)"
 //        displayElevation.text = "\(places[selectedPlace]!.elevation)"
         self.title = places.name
-        displayName.text = places.name
+        
         displayDescription.text = places.description
         displayCategory.text = places.category
         displayAddressTitle.text = places.addresstitle
@@ -76,7 +77,7 @@ class ViewController: UIViewController , UITextViewDelegate{
         // Dispose of any resources that can be recreated.
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.displayName.resignFirstResponder()
+        
         self.displayDescription.resignFirstResponder()
         self.displayAddressTitle.resignFirstResponder()
         self.displayAddress.resignFirstResponder()
@@ -87,7 +88,7 @@ class ViewController: UIViewController , UITextViewDelegate{
     
     // UITextFieldDelegate Method
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.displayName.resignFirstResponder()
+        
         self.displayDescription.resignFirstResponder()
         self.displayAddressTitle.resignFirstResponder()
         self.displayAddress.resignFirstResponder()
@@ -96,6 +97,7 @@ class ViewController: UIViewController , UITextViewDelegate{
         self.displayLongitude.resignFirstResponder()
         return true
     }
+
 
 }
 

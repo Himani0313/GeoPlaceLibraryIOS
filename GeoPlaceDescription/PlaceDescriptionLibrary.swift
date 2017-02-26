@@ -65,6 +65,9 @@ public class PlaceDescriptionLibrary{
     func getPlaceDescription(placeTitle : String) -> PlaceDescription{
         return places[placeTitle]!
     }
-
+    func remove(selectedPlace: String){
+        places.removeValue(forKey: selectedPlace)
+        self.placeNames = Array(places.keys)
+    }
 }
 
