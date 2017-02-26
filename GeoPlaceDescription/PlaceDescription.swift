@@ -43,32 +43,42 @@ class PlaceDescription {
         self.latitude = 0
         self.longitude = 0
     }
-    public init (jsonStr: String){
-        self.name = ""
-        self.description = ""
-        self.category = ""
-        self.addresstitle = ""
-        self.address = ""
-        self.elevation = 0
-        self.latitude = 0
-        self.longitude = 0
-        
-        if let data: NSData = jsonStr.data(using: String.Encoding.utf8) as NSData?{
-            do{
-                let dict = try JSONSerialization.jsonObject(with: data as Data,options:.mutableContainers) as?[String:AnyObject]
-                self.name = (dict!["name"] as? String)!
-                self.description = (dict!["description"] as? String)!
-                self.category = (dict!["category"] as? String)!
-                self.addresstitle = (dict!["addressTitle"] as? String)!
-                self.address = (dict!["addressStreet"] as? String)!
-                self.elevation = (dict!["elevation"] as? Float)!
-                self.latitude = (dict!["latitude"] as? Float)!
-                self.longitude = (dict!["longitude"] as? Float)!
-            } catch {
-                print("unable to convert Json to a dictionary")
-                
-            }
-        }
+//    public init (jsonStr: String){
+//        self.name = ""
+//        self.description = ""
+//        self.category = ""
+//        self.addresstitle = ""
+//        self.address = ""
+//        self.elevation = 0
+//        self.latitude = 0
+//        self.longitude = 0
+//        
+//        if let data: NSData = jsonStr.data(using: String.Encoding.utf8) as NSData?{
+//            do{
+//                let dict = try JSONSerialization.jsonObject(with: data as Data,options:.mutableContainers) as?[String:AnyObject]
+//                self.name = (dict!["name"] as? String)!
+//                self.description = (dict!["description"] as? String)!
+//                self.category = (dict!["category"] as? String)!
+//                self.addresstitle = (dict!["addressTitle"] as? String)!
+//                self.address = (dict!["addressStreet"] as? String)!
+//                self.elevation = (dict!["elevation"] as? Float)!
+//                self.latitude = (dict!["latitude"] as? Float)!
+//                self.longitude = (dict!["longitude"] as? Float)!
+//            } catch {
+//                print("unable to convert Json to a dictionary")
+//                
+//            }
+//        }
+//    }
+    public init(name: String, description: String, category: String, addressTitle: String, addressStreet: String, elevation: Float, latitude: Float, longitude: Float){
+        self.name = name
+        self.description = description
+        self.category = category
+        self.addresstitle = addressTitle
+        self.address = addressStreet
+        self.elevation = elevation
+        self.latitude = latitude
+        self.longitude = longitude
     }
     
     public func toJsonString() -> String {

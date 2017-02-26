@@ -18,6 +18,8 @@
 		E447D4F51E3045DC008AA940 /* GeoPlaceDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447D4F41E3045DC008AA940 /* GeoPlaceDescriptionTests.swift */; };
 		E447D5001E3045DC008AA940 /* GeoPlaceDescriptionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447D4FF1E3045DC008AA940 /* GeoPlaceDescriptionUITests.swift */; };
 		E447D50E1E3049A1008AA940 /* PlaceDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = E447D50D1E3049A1008AA940 /* PlaceDescription.swift */; };
+		E4EC9AB11E621B60008847AD /* places.json in Resources */ = {isa = PBXBuildFile; fileRef = E4EC9AB01E621B60008847AD /* places.json */; };
+		E4EC9AB31E621BC1008847AD /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EC9AB21E621BC1008847AD /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		E447D4FF1E3045DC008AA940 /* GeoPlaceDescriptionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPlaceDescriptionUITests.swift; sourceTree = "<group>"; };
 		E447D5011E3045DC008AA940 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E447D50D1E3049A1008AA940 /* PlaceDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDescription.swift; sourceTree = "<group>"; };
+		E4EC9AB01E621B60008847AD /* places.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = places.json; path = ../../../Documents/places.json; sourceTree = "<group>"; };
+		E4EC9AB21E621BC1008847AD /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 		E447D4DE1E3045DC008AA940 /* GeoPlaceDescription */ = {
 			isa = PBXGroup;
 			children = (
+				E4EC9AB21E621BC1008847AD /* SwiftyJSON.swift */,
+				E4EC9AB01E621B60008847AD /* places.json */,
 				E447D4DF1E3045DC008AA940 /* AppDelegate.swift */,
 				E447D4E11E3045DC008AA940 /* ViewController.swift */,
 				E447D4E31E3045DC008AA940 /* Main.storyboard */,
@@ -247,6 +253,7 @@
 				E447D4EA1E3045DC008AA940 /* LaunchScreen.storyboard in Resources */,
 				E447D4E71E3045DC008AA940 /* Assets.xcassets in Resources */,
 				E447D4E51E3045DC008AA940 /* Main.storyboard in Resources */,
+				E4EC9AB11E621B60008847AD /* places.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +283,7 @@
 				E4409C131E60E4530023ED78 /* PlaceDescriptionLibrary.swift in Sources */,
 				E42D961C1E5A358100408588 /* tableViewController.swift in Sources */,
 				E4409C111E60B7120023ED78 /* addViewController.swift in Sources */,
+				E4EC9AB31E621BC1008847AD /* SwiftyJSON.swift in Sources */,
 				E447D4E01E3045DC008AA940 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
