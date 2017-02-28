@@ -10,7 +10,7 @@ import Foundation
 
 public class PlaceDescriptionLibrary{
     
-    //let pdo : PlaceDescription
+    let pdo1: PlaceDescription = PlaceDescription()
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var placeNames:[String] = [String]()
     
@@ -68,6 +68,9 @@ public class PlaceDescriptionLibrary{
     func remove(selectedPlace: String){
         places.removeValue(forKey: selectedPlace)
         self.placeNames = Array(places.keys)
+    }
+    func add(selectedPlace: PlaceDescription, placeTitle : String) {
+        places[placeTitle] = selectedPlace
     }
 }
 
