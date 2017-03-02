@@ -30,9 +30,9 @@ class PlaceDescription {
     var category: String
     var addresstitle: String
     var address: String
-    var elevation: Float
-    var latitude: Float
-    var longitude: Float
+    var elevation: Double
+    var latitude: Double
+    var longitude: Double
     public init(){
         self.name = ""
         self.description = ""
@@ -70,7 +70,7 @@ class PlaceDescription {
 //            }
 //        }
 //    }
-    public init(name: String, description: String, category: String, addressTitle: String, addressStreet: String, elevation: Float, latitude: Float, longitude: Float){
+    public init(name: String, description: String, category: String, addressTitle: String, addressStreet: String, elevation: Double, latitude: Double, longitude: Double){
         self.name = name
         self.description = description
         self.category = category

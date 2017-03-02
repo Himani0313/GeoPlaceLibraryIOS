@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import os.log
 
 class addViewController: UIViewController {
-    var placeDescriptionObject : PlaceDescription = PlaceDescription()
+    var placeDescriptionObject : PlaceDescription?
     let placeDescriptionLibraryObject = PlaceDescriptionLibrary()
     @IBOutlet weak var nameDisplay: UITextField!
     @IBOutlet weak var descriptionDisplay: UITextField!
@@ -19,21 +20,22 @@ class addViewController: UIViewController {
     @IBOutlet weak var elevationDisplay: UITextField!
     @IBOutlet weak var latitudeDisplay: UITextField!
     @IBOutlet weak var longitudeDisplay: UITextField!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBAction func cancelbutton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    @IBAction func savebutton(_ sender: Any) {
-        placeDescriptionObject.name = nameDisplay.text!
-        placeDescriptionObject.description = descriptionDisplay.text!
-        placeDescriptionObject.category = categoryDisplay.text!
-        placeDescriptionObject.addresstitle = addTitleDisplay.text!
-        placeDescriptionObject.address = addStreetDisplay.text!
-        placeDescriptionObject.elevation = Float(elevationDisplay.text!)!
-        placeDescriptionObject.latitude = Float(latitudeDisplay.text!)!
-        placeDescriptionObject.longitude = Float(longitudeDisplay.text!)!
-        placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: nameDisplay.text!)
-        dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func savebutton(_ sender: Any) {
+//        placeDescriptionObject.name = nameDisplay.text!
+//        placeDescriptionObject.description = descriptionDisplay.text!
+//        placeDescriptionObject.category = categoryDisplay.text!
+//        placeDescriptionObject.addresstitle = addTitleDisplay.text!
+//        placeDescriptionObject.address = addStreetDisplay.text!
+//        placeDescriptionObject.elevation = Float(elevationDisplay.text!)!
+//        placeDescriptionObject.latitude = Float(latitudeDisplay.text!)!
+//        placeDescriptionObject.longitude = Float(longitudeDisplay.text!)!
+//        placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: nameDisplay.text!)
+//        dismiss(animated: true, completion: nil)
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add a Place"
@@ -45,15 +47,23 @@ class addViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        // Configure the destination view controller only when the save button is pressed.
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        placeDescriptionObject = PlaceDescription(name: nameDisplay.text!, description: descriptionDisplay.text!, category: categoryDisplay.text!, addressTitle: addTitleDisplay.text!, addressStreet: addStreetDisplay.text!, elevation: Double(elevationDisplay.text!)!, latitude: Double(latitudeDisplay.text!)!, longitude: Double(longitudeDisplay.text!)!)
     }
-    */
+    
 
 }

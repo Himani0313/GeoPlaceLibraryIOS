@@ -33,7 +33,7 @@ public class PlaceDescriptionLibrary{
 //                        let strcate = ",\"category\":"+value["category"].string!+"}"
 //                        let str = straddt + stradds + strelev + strlat + strlong + strnam + strdes + strcate
 //                        let place1: PlaceDescription = PlaceDescription(jsonStr: str)
-                        let pdo: PlaceDescription = PlaceDescription(name: value["name"].string!, description: value["description"].string!, category: value["category"].string!, addressTitle: value["address-title"].string!, addressStreet: value["address-street"].string!, elevation: value["elevation"].float!, latitude: value["latitude"].float!, longitude: value["longitude"].float!)
+                        let pdo: PlaceDescription = PlaceDescription(name: value["name"].string!, description: value["description"].string!, category: value["category"].string!, addressTitle: value["address-title"].string!, addressStreet: value["address-street"].string!, elevation: value["elevation"].double!, latitude: value["latitude"].double!, longitude: value["longitude"].double!)
                         places[key] = pdo
                     }
                 }
@@ -71,6 +71,7 @@ public class PlaceDescriptionLibrary{
     }
     func add(selectedPlace: PlaceDescription, placeTitle : String) {
         places[placeTitle] = selectedPlace
+        self.placeNames = Array(places.keys)
     }
 }
 

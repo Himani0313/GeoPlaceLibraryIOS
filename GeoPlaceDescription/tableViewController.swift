@@ -29,9 +29,9 @@ class tableViewController: UITableViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func navigateToNextViewController(){
-        self.performSegue(withIdentifier: "addPlace", sender: self)
-    }
+//    func navigateToNextViewController(){
+//        self.performSegue(withIdentifier: "addPlace", sender: self)
+//    }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         print("tableView editing row at: \(indexPath.row)")
         if editingStyle == .delete {
@@ -60,6 +60,19 @@ class tableViewController: UITableViewController{
         
         return cell
     }
+    @IBAction func unwindToPlaceList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? addViewController, let placeDescriptionObject = sourceViewController.placeDescriptionObject {
+            
+            // Add a new meal.
+            //let newIndexPath = IndexPath(row: meals.count, section: 0)
+            
+//            meals.append(meal)
+//            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: placeDescriptionObject.name)
+            names = placeDescriptionLibraryObject.getPlaceTitles()
+            self.tableView.reloadData()
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object (and model) to the new view controller.
@@ -70,6 +83,8 @@ class tableViewController: UITableViewController{
             let aPlace = placeDescriptionLibraryObject.getPlaceDescription(placeTitle: names[indexPath.row]) as PlaceDescription
             viewController.places = aPlace
             viewController.selectedPlace = names[indexPath.row]
+            viewController.placeNames = names
+            viewController.pdlo = placeDescriptionLibraryObject
         }
     }
 }
