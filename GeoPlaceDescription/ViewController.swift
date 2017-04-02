@@ -85,6 +85,31 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    func callGetNPopulatUIFields(_ name: String){
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resGet:Bool = aConnect.get(name: name, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                        let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
+                        //                        let aStud:Student = Student(dict: aDict)
+                        //                        self.nameTF.text = aStud.name
+                        //                        self.studentNumTF.text = "\(aStud.studentid)"
+                        //                        self.takes = aStud.takes
+                        //                        self.takesTF.text = ((self.takes.count > 0) ? self.takes[0] : "")
+                        //                        self.takesPicker.reloadAllComponents()
+                        self.places = PlaceDescription(dict: aDict)
+                    } catch {
+                        NSLog("unable to convert to dictionary")
+                    }
+                }
+            }
+        })
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.displayDescription.resignFirstResponder()

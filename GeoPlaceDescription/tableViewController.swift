@@ -13,7 +13,7 @@ class tableViewController: UITableViewController{
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var names:[String] = [String]()
     let urlString:String = "http://127.0.0.1:8090"
-    
+    var aPlace:PlaceDescription = PlaceDescription()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,31 @@ class tableViewController: UITableViewController{
             }
         })  // end of method call to getNames
     }
-    
+    func callGetNPopulatUIFields(_ name: String){
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resGet:Bool = aConnect.get(name: name, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                        let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
+//                        let aStud:Student = Student(dict: aDict)
+//                        self.nameTF.text = aStud.name
+//                        self.studentNumTF.text = "\(aStud.studentid)"
+//                        self.takes = aStud.takes
+//                        self.takesTF.text = ((self.takes.count > 0) ? self.takes[0] : "")
+//                        self.takesPicker.reloadAllComponents()
+                        self.aPlace = PlaceDescription(dict: aDict)
+                    } catch {
+                        NSLog("unable to convert to dictionary")
+                    }
+                }
+            }
+        })
+    }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         print("tableView editing row at: \(indexPath.row)")
         if editingStyle == .delete {
@@ -108,7 +132,8 @@ class tableViewController: UITableViewController{
         if segue.identifier == "PlaceDetail" {
             let viewController:ViewController = segue.destination as! ViewController
             let indexPath = self.tableView.indexPathForSelectedRow!
-            let aPlace = placeDescriptionLibraryObject.getPlaceDescription(placeTitle: names[indexPath.row]) as PlaceDescription
+            //let aPlace = placeDescriptionLibraryObject.getPlaceDescription(placeTitle: names[indexPath.row]) as PlaceDescription
+            callGetNPopulatUIFields(names[indexPath.row])
             viewController.places = aPlace
             viewController.selectedPlace = names[indexPath.row]
             viewController.placeNames = names

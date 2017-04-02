@@ -43,6 +43,17 @@ class PlaceDescription {
         self.latitude = 0
         self.longitude = 0
     }
+    init(dict: [String:AnyObject]){
+        self.name = dict["name"] as! String
+        self.description = dict["description"] as! String
+        self.category = dict["category"] as! String
+        self.addresstitle = dict["address-title"] as! String
+        self.address = dict["address-street"] as! String
+        self.elevation = dict["elevation"] as! Double
+        self.latitude = dict["latitude"] as! Double
+        self.longitude = dict["longitude"] as! Double
+        
+    }
 //    public init (jsonStr: String){
 //        self.name = ""
 //        self.description = ""
