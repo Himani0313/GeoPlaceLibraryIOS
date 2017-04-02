@@ -13,8 +13,11 @@ public class PlaceDescriptionLibrary{
     let pdo1: PlaceDescription = PlaceDescription()
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var placeNames:[String] = [String]()
-    
+    static var id:Int = 0
+    let urlString:String = "http://127.0.0.1:8090"
+    var url:String
     public init(){
+        self.url = urlString
         if let jsonpath = Bundle.main.path(forResource: "places", ofType: "json"){
             do{
                 let jdata = try Data(contentsOf: URL(fileURLWithPath: jsonpath), options: .alwaysMapped)
@@ -72,6 +75,50 @@ public class PlaceDescriptionLibrary{
     func add(selectedPlace: PlaceDescription, placeTitle : String) {
         places[placeTitle] = selectedPlace
         self.placeNames = Array(places.keys)
+    }
+    // used by methods below to send a request asynchronously.
+    // asyncHttpPostJson creates and posts a URLRequest that attaches a JSONRPC request as a Data object
+    func asyncHttpPostJSON(url: String,  data: Data,
+                           completion: @escaping (String, String?) -> Void) {
+        
+        let request = NSMutableURLRequest(url: NSURL(string: url)! as URL)
+        request.httpMethod = "POST"
+        request.addValue("application/json",forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json",forHTTPHeaderField: "Accept")
+        request.httpBody = data
+        HTTPsendRequest(request: request, callback: completion)
+    }
+    
+    // sendHttpRequest
+    func HTTPsendRequest(request: NSMutableURLRequest,
+                         callback: @escaping (String, String?) -> Void) {
+        // task.resume() below, causes the shared session http request to be posted in the background
+        // (independent of the UI Thread)
+        // the use of the DispatchQueue.main.async causes the callback to occur on the main queue --
+        // where the UI can be altered, and it occurs after the result of the post is received.
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
+            (data, response, error) -> Void in
+            if (error != nil) {
+                callback("", error!.localizedDescription)
+            } else {
+                DispatchQueue.main.async(execute: {callback(NSString(data: data!,
+                                                                     encoding: String.Encoding.utf8.rawValue)! as String, nil)})
+            }
+        }
+        task.resume()
+    }
+    func getNames(callback: @escaping (String, String?) -> Void) -> Bool{
+        var ret:Bool = false
+        PlaceDescriptionLibrary.id = PlaceDescriptionLibrary.id + 1
+        do {
+            let dict:[String:Any] = ["jsonrpc":"2.0", "method":"getNames", "params":[ ], "id":PlaceDescriptionLibrary.id]
+            let reqData:Data = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions(rawValue: 0))
+            self.asyncHttpPostJSON(url: self.url, data: reqData, completion: callback)
+            ret = true
+        } catch let error as NSError {
+            print(error)
+        }
+        return ret
     }
 }
 

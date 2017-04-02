@@ -12,7 +12,7 @@ class tableViewController: UITableViewController{
     let placeDescriptionLibraryObject = PlaceDescriptionLibrary()
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var names:[String] = [String]()
-    
+    let urlString:String = "http://127.0.0.1:8090"
     
   
     override func viewDidLoad() {
@@ -20,10 +20,10 @@ class tableViewController: UITableViewController{
         NSLog("view did load" )
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
-        self.names = placeDescriptionLibraryObject.getPlaceTitles()
+        //self.names = placeDescriptionLibraryObject.getPlaceTitles()
         
         self.title = "Places List"
-        
+        self.callGetNamesNUpdateStudentsPicker()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,6 +32,34 @@ class tableViewController: UITableViewController{
 //    func navigateToNextViewController(){
 //        self.performSegue(withIdentifier: "addPlace", sender: self)
 //    }
+    func callGetNamesNUpdateStudentsPicker() {
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resultNames:Bool = aConnect.getNames(callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                        //self.students = (dict!["result"] as? [String])!
+                        //self.studSelectTF.text = ((self.students.count>0) ? self.students[0] : "")
+                        //self.studentPicker.reloadAllComponents()
+                        //if self.students.count > 0 {
+                        //    self.callGetNPopulatUIFields(self.students[0])
+                        //}
+                        //print(dict!["result"])
+                        self.names = (dict!["result"] as? [String])!
+                        self.tableView.reloadData()
+                    } catch {
+                        print("unable to convert to dictionary")
+                    }
+                }
+                
+            }
+        })  // end of method call to getNames
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         print("tableView editing row at: \(indexPath.row)")
         if editingStyle == .delete {
