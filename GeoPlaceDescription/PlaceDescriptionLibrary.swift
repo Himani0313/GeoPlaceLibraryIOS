@@ -14,7 +14,7 @@ public class PlaceDescriptionLibrary{
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var placeNames:[String] = [String]()
     static var id:Int = 0
-    let urlString:String = "http://127.0.0.1:8090"
+    let urlString:String = "http://127.0.0.1:8080"
     var url:String
     public init(){
         self.url = urlString
@@ -125,6 +125,19 @@ public class PlaceDescriptionLibrary{
         PlaceDescriptionLibrary.id = PlaceDescriptionLibrary.id + 1
         do {
             let dict:[String:Any] = ["jsonrpc":"2.0", "method":"get", "params":[name], "id":PlaceDescriptionLibrary.id]
+            let reqData:Data = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions(rawValue: 0))
+            self.asyncHttpPostJSON(url: self.url, data: reqData, completion: callback)
+            ret = true
+        } catch let error as NSError {
+            print(error)
+        }
+        return ret
+    }
+    func remove(name: String, callback: @escaping (String, String?) -> Void) -> Bool{
+        var ret:Bool = false
+        PlaceDescriptionLibrary.id = PlaceDescriptionLibrary.id + 1
+        do {
+            let dict:[String:Any] = ["jsonrpc":"2.0", "method":"remove", "params":[name], "id":PlaceDescriptionLibrary.id]
             let reqData:Data = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions(rawValue: 0))
             self.asyncHttpPostJSON(url: self.url, data: reqData, completion: callback)
             ret = true

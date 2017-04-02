@@ -79,12 +79,14 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
         displayLongitude.text = String(format:"%f", places.longitude)
         self.placePicker.dataSource = self
         self.placePicker.delegate = self
+        self.callGetNPopulatUIFields(selectedPlace)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func callGetNPopulatUIFields(_ name: String){
         let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
         let resGet:Bool = aConnect.get(name: name, callback: { (res: String, err: String?) -> Void in
@@ -103,6 +105,14 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
                         //                        self.takesTF.text = ((self.takes.count > 0) ? self.takes[0] : "")
                         //                        self.takesPicker.reloadAllComponents()
                         self.places = PlaceDescription(dict: aDict)
+                        self.title = self.places.name
+                        self.displayDescription.text = self.places.description
+                        self.displayCategory.text = self.places.category
+                        self.displayAddressTitle.text = self.places.addresstitle
+                        self.displayAddress.text = self.places.address
+                        self.displayElevation.text = String(format:"%f", self.places.elevation)
+                        self.displayLatitude.text = String(format:"%f", self.places.latitude)
+                        self.displayLongitude.text = String(format:"%f", self.places.longitude)
                     } catch {
                         NSLog("unable to convert to dictionary")
                     }
