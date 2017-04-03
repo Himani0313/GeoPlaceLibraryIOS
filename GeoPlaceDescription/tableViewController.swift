@@ -23,7 +23,7 @@ class tableViewController: UITableViewController{
         //self.names = placeDescriptionLibraryObject.getPlaceTitles()
         
         self.title = "Places List"
-        self.callGetNamesNUpdateStudentsPicker()
+        self.PlaceNames()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,7 +32,7 @@ class tableViewController: UITableViewController{
 //    func navigateToNextViewController(){
 //        self.performSegue(withIdentifier: "addPlace", sender: self)
 //    }
-    func callGetNamesNUpdateStudentsPicker() {
+    func PlaceNames() {
         let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
         let resultNames:Bool = aConnect.getNames(callback: { (res: String, err: String?) -> Void in
             if err != nil {
@@ -59,15 +59,38 @@ class tableViewController: UITableViewController{
             }
         })  // end of method call to getNames
     }
-  
+    func remove(_ name: String, index: IndexPath ) {
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resultNames:Bool = aConnect.removePlace(name: name, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+//                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+//                        let str = String(describing: dict!["result"]) as String
+//                        self.callGetNamesNUpdateStudentsPicker()
+                        //self.tableView.reloadData()
+                        self.names.remove(at: index.row)
+                        self.tableView.deleteRows(at: [index], with: .fade)
+                    } catch {
+                        print("unable to convert to dictionary")
+                    }
+                }
+                
+            }
+        })  // end of method call to getNames
+    }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         print("tableView editing row at: \(indexPath.row)")
         if editingStyle == .delete {
             let selectedPlace:String = names[indexPath.row]
             print("deleting the place \(selectedPlace)")
-            placeDescriptionLibraryObject.remove(selectedPlace: selectedPlace)
-            self.names = placeDescriptionLibraryObject.getPlaceTitles()
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            //placeDescriptionLibraryObject.remove(selectedPlace: selectedPlace)
+            //self.names = placeDescriptionLibraryObject.getPlaceTitles()
+            self.remove(selectedPlace, index: indexPath)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
             // don't need to reload data, using delete to make update
         }
     }

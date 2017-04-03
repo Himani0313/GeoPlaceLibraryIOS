@@ -79,7 +79,7 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
         displayLongitude.text = String(format:"%f", places.longitude)
         self.placePicker.dataSource = self
         self.placePicker.delegate = self
-        self.callGetNPopulatUIFields(selectedPlace)
+        self.getPlaceDescription(selectedPlace)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,7 +87,7 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    func callGetNPopulatUIFields(_ name: String){
+    func getPlaceDescription(_ name: String){
         let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
         let resGet:Bool = aConnect.get(name: name, callback: { (res: String, err: String?) -> Void in
             if err != nil {
