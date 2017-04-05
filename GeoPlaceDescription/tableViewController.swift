@@ -82,6 +82,27 @@ class tableViewController: UITableViewController{
             }
         })  // end of method call to getNames
     }
+    func add(_ jsonObject: NSMutableDictionary, pname: String ) {
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resultNames:Bool = aConnect.addPlace(jsonObject: jsonObject, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        
+                        self.names.append(pname)
+                        self.tableView.reloadData()
+                        //self.tableView.deleteRows(at: [index], with: .fade)
+                    } catch {
+                        print("unable to convert to dictionary")
+                    }
+                }
+                
+            }
+        })  // end of method call to getNames
+    }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         print("tableView editing row at: \(indexPath.row)")
         if editingStyle == .delete {
@@ -119,9 +140,10 @@ class tableViewController: UITableViewController{
             
 //            meals.append(meal)
 //            tableView.insertRows(at: [newIndexPath], with: .automatic)
-            placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: placeDescriptionObject.name)
-            names = placeDescriptionLibraryObject.getPlaceTitles()
-            self.tableView.reloadData()
+//            placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: placeDescriptionObject.name)
+//            names = placeDescriptionLibraryObject.getPlaceTitles()
+            
+            add(placeDescriptionObject.toJsonObject(), pname: placeDescriptionObject.name)
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

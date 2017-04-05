@@ -46,29 +46,7 @@ class addViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func add(_ name: String, index: IndexPath ) {
-        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
-        let resultNames:Bool = aConnect.addPlace(name: name, callback: { (res: String, err: String?) -> Void in
-            if err != nil {
-                NSLog(err!)
-            }else{
-                NSLog(res)
-                if let data: Data = res.data(using: String.Encoding.utf8){
-                    do{
-                            let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
-                            let str = String(describing: dict!["result"]) as String
-                        //                        self.callGetNamesNUpdateStudentsPicker()
-                        //self.tableView.reloadData()
-                        
-                    } catch {
-                        print("unable to convert to dictionary")
-                    }
-                }
-                
-            }
-        })  // end of method call to getNames
-    }
-    
+        
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

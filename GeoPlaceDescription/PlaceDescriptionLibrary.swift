@@ -146,11 +146,11 @@ public class PlaceDescriptionLibrary{
         }
         return ret
     }
-    func addPlace(name: String, callback: @escaping (String, String?) -> Void) -> Bool{
+    func addPlace(jsonObject: NSMutableDictionary, callback: @escaping (String, String?) -> Void) -> Bool{
         var ret:Bool = false
         PlaceDescriptionLibrary.id = PlaceDescriptionLibrary.id + 1
         do {
-            let dict:[String:Any] = ["jsonrpc":"2.0", "method":"add", "params":[name], "id":PlaceDescriptionLibrary.id]
+            let dict:[String:Any] = ["jsonrpc":"2.0", "method":"add", "params":[jsonObject], "id":PlaceDescriptionLibrary.id]
             let reqData:Data = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions(rawValue: 0))
             self.asyncHttpPostJSON(url: self.url, data: reqData, completion: callback)
             ret = true

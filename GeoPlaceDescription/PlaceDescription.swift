@@ -104,4 +104,16 @@ class PlaceDescription {
         }
         return jsonStr
     }
+    public func toJsonObject() -> NSMutableDictionary{
+        let jsonObj: NSMutableDictionary = NSMutableDictionary()
+        jsonObj.setValue(name, forKey: "name")
+        jsonObj.setValue(description, forKey: "description")
+        jsonObj.setValue(category, forKey: "category")
+        jsonObj.setValue(addresstitle, forKey: "address-title")
+        jsonObj.setValue(address, forKey: "address-street")
+        jsonObj.setValue(latitude, forKey: "latitude")
+        jsonObj.setValue(longitude, forKey: "longitude")
+        jsonObj.setValue(elevation, forKey: "elevation")
+        return jsonObj
+    }
 }
