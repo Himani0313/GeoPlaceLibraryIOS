@@ -15,13 +15,12 @@
  *
  * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
  *
- * Purpose: Example of single view application
- * Allows to display the objects of a class to access the GUI
+ * Purpose: To add, delete and update placedescription objects from JSON Rpc server
  *
  * Ser423 Mobile Applications
  * @author Himani Shah Himani.shah@asu.edu
  *         Software Engineering, CIDSE, ASU Poly
- * @version January 2017
+ * @version April 2017
  */
 
 import UIKit

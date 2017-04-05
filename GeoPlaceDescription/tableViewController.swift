@@ -1,10 +1,27 @@
-//
-//  TableViewController_1st.swift
-//  GeoPlaceDescription
-//
-//  Created by hjshah2 on 2/19/17.
-//  Copyright © 2017 hjshah2. All rights reserved.
-//
+/*
+ * Copyright 2017 Himani Shah,
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
+ *
+ * Purpose: To add, delete and update placedescription objects from JSON Rpc server
+ *
+ * Ser423 Mobile Applications
+ * @author Himani Shah Himani.shah@asu.edu
+ *         Software Engineering, CIDSE, ASU Poly
+ * @version April 2017
+ */
 
 import UIKit
 
@@ -29,9 +46,7 @@ class tableViewController: UITableViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//    func navigateToNextViewController(){
-//        self.performSegue(withIdentifier: "addPlace", sender: self)
-//    }
+
     func PlaceNames() {
         let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
         let resultNames:Bool = aConnect.getNames(callback: { (res: String, err: String?) -> Void in
@@ -42,13 +57,7 @@ class tableViewController: UITableViewController{
                 if let data: Data = res.data(using: String.Encoding.utf8){
                     do{
                         let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
-                        //self.students = (dict!["result"] as? [String])!
-                        //self.studSelectTF.text = ((self.students.count>0) ? self.students[0] : "")
-                        //self.studentPicker.reloadAllComponents()
-                        //if self.students.count > 0 {
-                        //    self.callGetNPopulatUIFields(self.students[0])
-                        //}
-                        //print(dict!["result"])
+                        
                         self.names = (dict!["result"] as? [String])!
                         self.tableView.reloadData()
                     } catch {
@@ -68,10 +77,6 @@ class tableViewController: UITableViewController{
                 NSLog(res)
                 if let data: Data = res.data(using: String.Encoding.utf8){
                     do{
-//                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
-//                        let str = String(describing: dict!["result"]) as String
-//                        self.callGetNamesNUpdateStudentsPicker()
-                        //self.tableView.reloadData()
                         self.names.remove(at: index.row)
                         self.tableView.deleteRows(at: [index], with: .fade)
                     } catch {
@@ -108,8 +113,6 @@ class tableViewController: UITableViewController{
         if editingStyle == .delete {
             let selectedPlace:String = names[indexPath.row]
             print("deleting the place \(selectedPlace)")
-            //placeDescriptionLibraryObject.remove(selectedPlace: selectedPlace)
-            //self.names = placeDescriptionLibraryObject.getPlaceTitles()
             self.remove(selectedPlace, index: indexPath)
             //tableView.deleteRows(at: [indexPath], with: .fade)
             // don't need to reload data, using delete to make update
@@ -135,14 +138,6 @@ class tableViewController: UITableViewController{
     @IBAction func unwindToPlaceList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? addViewController, let placeDescriptionObject = sourceViewController.placeDescriptionObject {
             
-            // Add a new meal.
-            //let newIndexPath = IndexPath(row: meals.count, section: 0)
-            
-//            meals.append(meal)
-//            tableView.insertRows(at: [newIndexPath], with: .automatic)
-//            placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: placeDescriptionObject.name)
-//            names = placeDescriptionLibraryObject.getPlaceTitles()
-            
             add(placeDescriptionObject.toJsonObject(), pname: placeDescriptionObject.name)
         }
     }
@@ -153,9 +148,6 @@ class tableViewController: UITableViewController{
         if segue.identifier == "PlaceDetail" {
             let viewController:ViewController = segue.destination as! ViewController
             let indexPath = self.tableView.indexPathForSelectedRow!
-            //let aPlace = placeDescriptionLibraryObject.getPlaceDescription(placeTitle: names[indexPath.row]) as PlaceDescription
-            //callGetNPopulatUIFields(names[indexPath.row])
-            //viewController.places = aPlace
             viewController.selectedPlace = names[indexPath.row]
             viewController.placeNames = names
             viewController.pdlo = placeDescriptionLibraryObject

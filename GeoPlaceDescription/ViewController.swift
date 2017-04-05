@@ -14,15 +14,14 @@
  * limitations under the License.
  *
  * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
- * Purpose: Example of single view application
- * Allows to display the objects of a class to access the GUI
+ *
+ * Purpose: To add, delete and update placedescription objects from JSON Rpc server
  *
  * Ser423 Mobile Applications
  * @author Himani Shah Himani.shah@asu.edu
  *         Software Engineering, CIDSE, ASU Poly
  * @version January 2017
  */
-
 
 import UIKit
 
@@ -53,21 +52,13 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
         places.elevation = Double(displayElevation.text!)!
         places.latitude = Double(displayLatitude.text!)!
         places.longitude = Double(displayLongitude.text!)!
+        updatePlace(places.toJsonObject())
         dismiss(animated: true, completion: nil)
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        displayName.text = "\(places[selectedPlace]!.name)"
-//        displayDescription.text = "\(places[selectedPlace]!.description)"
-//        displayCategory.text = "\(places[selectedPlace]!.category)"
-//        displayAddressTitle.text = "\(places[selectedPlace]!.addresstitle)"
-//        displayAddress.text = "\(places[selectedPlace]!.address)"
-//        displayLatitude.text = "\(places[selectedPlace]!.latitude)"
-//        displayLongitude.text = "\(places[selectedPlace]!.longitude)"
-//        displayElevation.text = "\(places[selectedPlace]!.elevation)"
         self.title = places.name
         
         displayDescription.text = places.description
@@ -98,12 +89,6 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
                     do{
                         let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
                         let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
-                        //                        let aStud:Student = Student(dict: aDict)
-                        //                        self.nameTF.text = aStud.name
-                        //                        self.studentNumTF.text = "\(aStud.studentid)"
-                        //                        self.takes = aStud.takes
-                        //                        self.takesTF.text = ((self.takes.count > 0) ? self.takes[0] : "")
-                        //                        self.takesPicker.reloadAllComponents()
                         self.places = PlaceDescription(dict: aDict)
                         self.title = self.places.name
                         self.displayDescription.text = self.places.description
@@ -113,6 +98,36 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
                         self.displayElevation.text = String(format:"%f", self.places.elevation)
                         self.displayLatitude.text = String(format:"%f", self.places.latitude)
                         self.displayLongitude.text = String(format:"%f", self.places.longitude)
+                    } catch {
+                        NSLog("unable to convert to dictionary")
+                    }
+                }
+            }
+        })
+    }
+    func updatePlace(_ jsonObject: NSMutableDictionary) {
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resultNames:Bool = aConnect.addPlace(jsonObject: jsonObject, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }
+        })  // end of method call to getNames
+    }
+    func getPlaceDescriptionForPicker(_ name: String){
+        let aConnect:PlaceDescriptionLibrary = PlaceDescriptionLibrary()
+        let resGet:Bool = aConnect.get(name: name, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                        let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
+                        self.toPlace = PlaceDescription(dict: aDict)
+                        self.calcGCD(toPlace: self.toPlace)
+                        self.calcBearing(toPlace: self.toPlace)
+                        
                     } catch {
                         NSLog("unable to convert to dictionary")
                     }
@@ -144,9 +159,7 @@ class ViewController: UIViewController , UITextViewDelegate, UIPickerViewDelegat
     // MARK: -- UIPickerVeiwDelegate method
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedPlace = placeNames[row]
-        toPlace = pdlo.getPlaceDescription(placeTitle: selectedPlace)
-        calcGCD(toPlace: toPlace)
-        calcBearing(toPlace: toPlace)
+        self.getPlaceDescriptionForPicker(selectedPlace)
     }
     
     // UIPickerViewDelegate method

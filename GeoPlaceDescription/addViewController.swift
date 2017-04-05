@@ -1,10 +1,27 @@
-//
-//  addViewController.swift
-//  GeoPlaceDescription
-//
-//  Created by hjshah2 on 2/25/17.
-//  Copyright © 2017 hjshah2. All rights reserved.
-//
+/*
+ * Copyright 2017 Himani Shah,
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
+ *
+ * Purpose: To add, delete and update placedescription objects from JSON Rpc server
+ *
+ * Ser423 Mobile Applications
+ * @author Himani Shah Himani.shah@asu.edu
+ *         Software Engineering, CIDSE, ASU Poly
+ * @version April 2017
+ */
 
 import UIKit
 import os.log
@@ -24,18 +41,7 @@ class addViewController: UIViewController {
     @IBAction func cancelbutton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-//    @IBAction func savebutton(_ sender: Any) {
-//        placeDescriptionObject.name = nameDisplay.text!
-//        placeDescriptionObject.description = descriptionDisplay.text!
-//        placeDescriptionObject.category = categoryDisplay.text!
-//        placeDescriptionObject.addresstitle = addTitleDisplay.text!
-//        placeDescriptionObject.address = addStreetDisplay.text!
-//        placeDescriptionObject.elevation = Float(elevationDisplay.text!)!
-//        placeDescriptionObject.latitude = Float(latitudeDisplay.text!)!
-//        placeDescriptionObject.longitude = Float(longitudeDisplay.text!)!
-//        placeDescriptionLibraryObject.add(selectedPlace: placeDescriptionObject, placeTitle: nameDisplay.text!)
-//        dismiss(animated: true, completion: nil)
-//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Add a Place"

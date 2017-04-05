@@ -14,14 +14,15 @@
  * limitations under the License.
  *
  * instuctor and the University with the right to build and evaluate the software package for the purpose of determining your grade and program assessment
- * Purpose: Example of single view application
- * Allows to display the objects of a class to access the GUI
+ *
+ * Purpose: To add, delete and update placedescription objects from JSON Rpc server
  *
  * Ser423 Mobile Applications
  * @author Himani Shah Himani.shah@asu.edu
  *         Software Engineering, CIDSE, ASU Poly
- * @version January 2017
+ * @version April 2017
  */
+
 
 import Foundation
 class PlaceDescription {
@@ -54,33 +55,7 @@ class PlaceDescription {
         self.longitude = dict["longitude"] as! Double
         
     }
-//    public init (jsonStr: String){
-//        self.name = ""
-//        self.description = ""
-//        self.category = ""
-//        self.addresstitle = ""
-//        self.address = ""
-//        self.elevation = 0
-//        self.latitude = 0
-//        self.longitude = 0
-//        
-//        if let data: NSData = jsonStr.data(using: String.Encoding.utf8) as NSData?{
-//            do{
-//                let dict = try JSONSerialization.jsonObject(with: data as Data,options:.mutableContainers) as?[String:AnyObject]
-//                self.name = (dict!["name"] as? String)!
-//                self.description = (dict!["description"] as? String)!
-//                self.category = (dict!["category"] as? String)!
-//                self.addresstitle = (dict!["addressTitle"] as? String)!
-//                self.address = (dict!["addressStreet"] as? String)!
-//                self.elevation = (dict!["elevation"] as? Float)!
-//                self.latitude = (dict!["latitude"] as? Float)!
-//                self.longitude = (dict!["longitude"] as? Float)!
-//            } catch {
-//                print("unable to convert Json to a dictionary")
-//                
-//            }
-//        }
-//    }
+
     public init(name: String, description: String, category: String, addressTitle: String, addressStreet: String, elevation: Double, latitude: Double, longitude: Double){
         self.name = name
         self.description = description
