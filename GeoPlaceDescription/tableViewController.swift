@@ -29,10 +29,16 @@ class tableViewController: UITableViewController{
     let placeDescriptionLibraryObject = PlaceDescriptionLibrary()
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var names:[String] = [String]()
-    let urlString:String = "http://127.0.0.1:8080"
+    var urlString:String = ""
     var aPlace:PlaceDescription = PlaceDescription()
-  
+    
     override func viewDidLoad() {
+        if let infoPlist = Bundle.main.infoDictionary {
+            self.urlString = ((infoPlist["ServerURLString"]) as?  String!)!
+            NSLog("The default urlString from info.plist is \(self.urlString)")
+        }else{
+            NSLog("error getting urlString from info.plist")
+        }
         super.viewDidLoad()
         NSLog("view did load" )
         self.navigationItem.leftBarButtonItem = self.editButtonItem

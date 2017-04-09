@@ -31,10 +31,14 @@ public class PlaceDescriptionLibrary{
     var places:[String:PlaceDescription] = [String:PlaceDescription]()
     var placeNames:[String] = [String]()
     static var id:Int = 0
-    let urlString:String = "http://127.0.0.1:8080"
-    var url:String
+    var url:String = ""
     public init(){
-        self.url = urlString
+        if let infoPlist = Bundle.main.infoDictionary {
+            self.url = ((infoPlist["ServerURLString"]) as?  String!)!
+            NSLog("The default urlString from info.plist is \(self.url)")
+        }else{
+            NSLog("error getting urlString from info.plist")
+        }
         if let jsonpath = Bundle.main.path(forResource: "places", ofType: "json"){
             do{
                 let jdata = try Data(contentsOf: URL(fileURLWithPath: jsonpath), options: .alwaysMapped)
